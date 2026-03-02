@@ -92,7 +92,6 @@
             <form 
                 action="https://assets.mailerlite.com/jsonp/2153057/forms/180776335255275113/subscribe" 
                 method="post" 
-                target="_blank"
                 class="flex flex-col gap-5"
             >
                 <input type="hidden" name="ml-submit" value="1">
@@ -123,6 +122,35 @@
             
         </div>
     </div>
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Empêche l'ouverture de la page bizarre
+        
+        const formData = new FormData(form);
+        
+        // On envoie les données "dans le silence" à MailerLite
+        try {
+            await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Nécessaire pour MailerLite
+            });
+            
+            // On remplace le contenu du formulaire par un message sympa
+            form.innerHTML = `
+                <div class="text-center p-6 bg-emerald-500/20 rounded-2xl border border-emerald-400/50 animate-pulse">
+                    <h3 class="text-2xl font-bold text-emerald-300 mb-2">Merci ! 🍿</h3>
+                    <p class="text-emerald-50 font-light">Ton accès est validé. On se retrouve très vite pour bingé du français !</p>
+                </div>
+            `;
+        } catch (error) {
+            // Si jamais ça plante, on laisse le formulaire au cas où
+            alert("Oups, petit souci. Réessaie ou contacte-nous !");
+        }
+    });
+</script>
 
 </body>
 </html>
