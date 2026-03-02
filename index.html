@@ -126,28 +126,26 @@
 <script>
     const form = document.querySelector('form');
     form.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Empêche l'ouverture de la page bizarre
+        e.preventDefault(); 
         
         const formData = new FormData(form);
         
-        // On envoie les données "dans le silence" à MailerLite
         try {
             await fetch(form.action, {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' // Nécessaire pour MailerLite
+                mode: 'no-cors' 
             });
             
-            // On remplace le contenu du formulaire par un message sympa
+            // Version corrigée en anglais pour rester cohérent avec BingeLang
             form.innerHTML = `
                 <div class="text-center p-6 bg-emerald-500/20 rounded-2xl border border-emerald-400/50 animate-pulse">
-                    <h3 class="text-2xl font-bold text-emerald-300 mb-2">Merci ! 🍿</h3>
-                    <p class="text-emerald-50 font-light">Ton accès est validé. On se retrouve très vite pour bingé du français !</p>
+                    <h3 class="text-2xl font-bold text-emerald-300 mb-2">Thanks! 🍿</h3>
+                    <p class="text-emerald-50 font-light">You're on the list. We'll be in touch soon so you can start binging French!</p>
                 </div>
             `;
         } catch (error) {
-            // Si jamais ça plante, on laisse le formulaire au cas où
-            alert("Oups, petit souci. Réessaie ou contacte-nous !");
+            alert("Oops, something went wrong. Please try again or contact us!");
         }
     });
 </script>
